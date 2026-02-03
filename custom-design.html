@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Design Request</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header><strong>Custom Design Request</strong></header>
+
+<div class="container">
+  <div class="card">
+    <form id="form">
+      <input placeholder="Your Name" required>
+      <input placeholder="Phone / Email" required>
+      <textarea placeholder="Describe your requirements"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="status"></p>
+  </div>
+</div>
+
+<script type="module">
+import { db } from "./js/firebase.js";
+import { addDoc, collection } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+form.onsubmit = async e => {
+  e.preventDefault();
+  await addDoc(collection(db, "customRequests"), {
+    name: form[0].value,
+    contact: form[1].value,
+    message: form[2].value,
+    createdAt: new Date()
+  });
+  status.innerText = "Request submitted!";
+  form.reset();
+};
+</script>
+
+</body>
+</html>
